@@ -10,6 +10,7 @@
   </div>
 
   <Container :instadata="인스타데이터"/>
+  <button @click="more">더보기</button>
   
   <Footer></Footer>
 </template>
@@ -18,13 +19,34 @@
 import Footer from './components/Footer.vue'
 import Container from './components/Container.vue'
 import Data from './instadata.js'
+import axios from 'axios'
+
+
 
 export default {
   name: 'App',
   data(){
     return {
-      인스타데이터 : Data
+      인스타데이터 : Data,
     }
+  },
+  methods: {
+    more(){
+      // post 요청은 url로 두번째파라미터를 전송함
+      // 요청 성공시 then, 실패시 catch
+      // axios.post('URL',{name:'kim'}).then().catch();
+
+
+      // get요청이 성공했을때, 코드를 실행하고 싶으면 then 사용 
+      axios.get('https://codingapple1.github.io/vue/more0.json').then((결과)=>{
+        // 요청성공시 실행할 코드
+        // 콜백함수할때 function 말고 에로우함수 ()=> 로 사용하는게 좋음
+        // this함수를 잘 활용할 수 있음
+        //  에로우 함수사용할때 파라미터가 하나면  (결과)=> 대신 결과=>로 사용할 수 잇음
+        console.log(결과.data)
+        this.인스타데이터.push(결과.data)
+      });
+    },
   },
   components: {
     Footer,
