@@ -9,10 +9,19 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :instadata="인스타데이터"/>
+  <Container :instadata="인스타데이터" :step="step"/>
   <button @click="more">더보기</button>
   
   <Footer></Footer>
+
+<div v-if="step == 0">내용0</div>
+<div v-if="step == 1">내용1</div>
+<div v-if="step == 2">내용2</div>
+<button @click="step=0">버튼0</button>
+<button @click="step=1">버튼1</button>
+<button @click="step=2" >버튼2</button>
+<div style="margin-top:500px;"></div>
+
 </template>
 
 <script>
@@ -28,7 +37,8 @@ export default {
   data(){
     return {
       인스타데이터 : Data,
-      버튼누른횟수 : 0
+      버튼누른횟수 : 0,
+      step : 0
     }
   },
   methods: {
