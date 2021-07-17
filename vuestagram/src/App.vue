@@ -4,28 +4,27 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li @click="step++" v-if="step==1">Next</li>
+      <li @click="publish" v-if="step==2">post</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :instadata="인스타데이터" :step="step"/>
-  <button @click="more">더보기</button>
-  
-  <Footer></Footer>
+  <Container :instadata="인스타데이터" :step="step" :uploadimage='업로드이미지' @write="content = $event"/>
 
-<div v-if="step == 0">내용0</div>
-<div v-if="step == 1">내용1</div>
-<div v-if="step == 2">내용2</div>
-<button @click="step=0">버튼0</button>
-<button @click="step=1">버튼1</button>
-<button @click="step=2" >버튼2</button>
+  
+  <div class="footer">
+      <ul class="footer-button-plus">
+        <input @change="upload" type="file" id="file" class="inputfile" multiple accept="image/*"/>
+        <label for="file" class="input-plus">+</label>
+      </ul>
+  </div>
+
 <div style="margin-top:500px;"></div>
 
 </template>
 
 <script>
-import Footer from './components/Footer.vue'
 import Container from './components/Container.vue'
 import Data from './instadata.js'
 import axios from 'axios'
@@ -38,10 +37,26 @@ export default {
     return {
       인스타데이터 : Data,
       버튼누른횟수 : 0,
-      step : 0
+      step : 0,
+      업로드이미지 : '',
+      content : ''
     }
   },
   methods: {
+    publish(){
+      var mypost = {
+                      name: "Minny",
+                      userImage: "https://placeimg.com/100/100/animals",
+                      postImage: this.업로드이미지,
+                      likes: 49,
+                      date: "Apr 4",
+                      liked: false,
+                      content: this.content,
+                      filter: "lofi"
+                    };
+      this.인스타데이터.unshift(mypost);
+      this.step=0;
+    },
     more(){
         var url = 'https://codingapple1.github.io/vue/more'+this.버튼누른횟수+'.json';
         axios.get(url).then((결과)=>{
@@ -66,9 +81,16 @@ export default {
         // this.인스타데이터.push(결과.data)
       // });
     },
+    upload(e){
+      let 파일 = e.target.files;
+      this.업로드이미지 = URL.createObjectURL(파일[0])
+      this.step=1;
+    },
+    contentchange(e){
+      console.log(e.target)
+    }
   },
   components: {
-    Footer,
     Container
   }
 }
@@ -133,5 +155,26 @@ ul {
   position: relative;
   border-right: 1px solid #eee;
   border-left: 1px solid #eee;
+}
+.footer {
+  width: 100%;
+  position: sticky;
+  bottom: 0;
+  padding-bottom: 10px;
+  background-color: white;
+}
+.footer-button-plus {
+  width: 80px;
+  margin: auto;
+  text-align: center;
+  cursor: pointer;
+  font-size: 24px;
+  padding-top: 12px;
+}
+.inputfile {
+  display: none;
+}
+.input-plus {
+  cursor: pointer;
 }
 </style>

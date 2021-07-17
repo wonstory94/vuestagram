@@ -6,7 +6,8 @@
         
         <!-- 필터선택페이지 -->
         <div id="filter" v-if="step==1">
-            <div class="upload-image"></div>
+            <!-- <div class="upload-image" :style="`background:url(${uploadimage})`></div>-->
+            <div class="upload-image" :style="{'backgroundImage':'url('+uploadimage+')'}" ></div>
             <div class="filters">
                 <div class="filter-1"></div>
                 <div class="filter-1"></div>
@@ -20,8 +21,8 @@
         <div id="write" v-if="step==2">
             <div class="upload-image"></div>
             <div class="write">
-                <textarea class="write-box">write!</textarea>
-            </div>
+                <textarea class="write-box" @input="$emit('write', $event.target.value)">write!</textarea>
+            </div>  
         </div>
         
         
@@ -37,7 +38,8 @@ export default {
   },
   props:{
       instadata : Array,
-      step : Number
+      step : Number,
+      uploadimage : String
   }
 }
 </script>
@@ -48,6 +50,7 @@ width: 100%;
 height: 450px;
 background: cornflowerblue;
 background-size : cover;
+background-position: center;
 }
 .filters{
 overflow-x:scroll;
