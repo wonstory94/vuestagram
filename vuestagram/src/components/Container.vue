@@ -11,6 +11,8 @@
             <div class="filters">
                 <FilterBox :uploadimage="uploadimage" v-for="(a,i) in 인스타필터들" :key='i' :filterclass="a">
                     <!-- 컴포넌트 사이에 있는 데이터는 하위컴포넌트의 slot으로 들어감 -->
+                    <template v-slot:a> <p>data1</p></template>
+                    <template v-slot:b>data2</template>
                 </FilterBox>
             </div>
         </div>

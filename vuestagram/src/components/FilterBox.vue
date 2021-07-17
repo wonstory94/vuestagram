@@ -1,6 +1,7 @@
 <template>
   <div :class="filterclass" :style="{'backgroundImage':'url('+uploadimage+')'}" class="filter-item">
-      <slot></slot> 
+      <slot name="a"></slot> 
+      <slot name="b"></slot> 
   </div> 
   
 </template>
