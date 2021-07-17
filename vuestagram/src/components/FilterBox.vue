@@ -1,7 +1,6 @@
 <template>
-  <div :class="filterclass" :style="{'backgroundImage':'url('+uploadimage+')'}" class="filter-item">
-      <slot name="a"></slot> 
-      <slot name="b"></slot> 
+  <div :class="filterclass" :style="{'backgroundImage':'url('+uploadimage+')'}" class="filter-item" @click="fire(filterclass)">
+      <slot></slot> 
   </div> 
   
 </template>
@@ -16,7 +15,18 @@ export default {
   props:{
       uploadimage : String,
       filterclass : String
-  }
+  },
+  methods: {
+      fire(e){
+         
+        //   this.emitter.emit('이벤트명 작명','데이터')
+        //this.emitter.emit('이벤트명 작명','데이터');
+        // 수신하고 싶은 컴포넌트는 컴포넌트에가서
+        // this.emitter.on(); 으로 수신
+
+        this.emitter.emit('filter_choose',e);
+      }
+  },
 }
 </script>
 

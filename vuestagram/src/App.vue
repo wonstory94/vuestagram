@@ -10,10 +10,10 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :instadata="인스타데이터" :step="step" :uploadimage='업로드이미지' @write="content = $event"/>
+  <Container :instadata="인스타데이터" :step="step" :uploadimage='업로드이미지' :filter_choose="필터선택" @write="content = $event" />
 
   
-  <div class="footer">
+  <div class="footer" v-if="step==0">
       <ul class="footer-button-plus">
         <input @change="upload" type="file" id="file" class="inputfile" multiple accept="image/*"/>
         <label for="file" class="input-plus">+</label>
@@ -39,11 +39,22 @@ export default {
       버튼누른횟수 : 0,
       step : 0,
       업로드이미지 : '',
-      content : ''
+      content : '',
+      필터선택 : '_1977'
     }
+  },
+  mounted() {
+    // this.emitter.on('작명한 이벤트명',()=>{
+
+    // });
+    this.emitter.on('filter_choose',(a)=>{
+      console.log('필선 : '+a)
+        this.필터선택 = a;
+    });
   },
   methods: {
     publish(){
+      this.emitter.on('')
       var mypost = {
                       name: "Minny",
                       userImage: "https://placeimg.com/100/100/animals",
@@ -52,7 +63,7 @@ export default {
                       date: "Apr 4",
                       liked: false,
                       content: this.content,
-                      filter: "lofi"
+                      filter: this.필터선택
                     };
       this.인스타데이터.unshift(mypost);
       this.step=0;

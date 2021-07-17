@@ -1,10 +1,10 @@
 <template>
    <div class="post" v-for="(a,i) in instadata" :key='i'>
     <div class="post-header">
-      <div class="profile" :style="{'background-image':'url('+a.userImage+')'}"></div>
+      <div class="profile" :class="a.filter" :style="{'background-image':'url('+a.userImage+')'}"></div>
       <span class="profile-name">{{a.name}}</span>
     </div>
-    <div class="post-body" :style="{'background-image':'url('+a.postImage+')'}"></div>
+    <div class="post-body" :style="{'background-image':'url('+a.postImage+')'}" :class="a.filter"></div>
     <div class="post-content">
       <p>{{a.likes}} likes</p>
       <p><strong>{{a.name}}</strong> {{a.content}}</p>

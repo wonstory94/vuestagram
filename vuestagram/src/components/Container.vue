@@ -7,19 +7,18 @@
         <!-- 필터선택페이지 -->
         <div id="filter" v-if="step==1">
             <!-- <div class="upload-image" :style="`background:url(${uploadimage})`></div>-->
-            <div class="upload-image" :style="{'backgroundImage':'url('+uploadimage+')'}" ></div>
+            <div class="upload-image" :style="{'backgroundImage':'url('+uploadimage+')'}" :class="filter_choose"></div>
             <div class="filters">
                 <FilterBox :uploadimage="uploadimage" v-for="(a,i) in 인스타필터들" :key='i' :filterclass="a">
                     <!-- 컴포넌트 사이에 있는 데이터는 하위컴포넌트의 slot으로 들어감 -->
-                    <template v-slot:a> <p>data1</p></template>
-                    <template v-slot:b>data2</template>
+                    {{ a  }}
                 </FilterBox>
             </div>
         </div>
         
         <!-- 글작성페이지 -->
         <div id="write" v-if="step==2">
-            <div class="upload-image"></div>
+            <div class="upload-image" :style="{'backgroundImage':'url('+uploadimage+')'}" :class="filter_choose"></div>
             <div class="write">
                 <textarea class="write-box" @input="$emit('write', $event.target.value)">write!</textarea>
             </div>  
@@ -48,7 +47,8 @@ export default {
   props:{
       instadata : Array,
       step : Number,
-      uploadimage : String
+      uploadimage : String,
+      filter_choose : String
   }
 }
 </script>
