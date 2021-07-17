@@ -9,7 +9,9 @@
             <!-- <div class="upload-image" :style="`background:url(${uploadimage})`></div>-->
             <div class="upload-image" :style="{'backgroundImage':'url('+uploadimage+')'}" ></div>
             <div class="filters">
-                <FilterBox :uploadimage="uploadimage" v-for="(a,i) in 인스타필터들" :key='i' :filterclass="a"></FilterBox>
+                <FilterBox :uploadimage="uploadimage" v-for="(a,i) in 인스타필터들" :key='i' :filterclass="a">
+                    <!-- 컴포넌트 사이에 있는 데이터는 하위컴포넌트의 slot으로 들어감 -->
+                </FilterBox>
             </div>
         </div>
         
